@@ -53,7 +53,18 @@ permalink: /:year/:month/:day/:title/
 paginate_path: /posts/:num/
 paginate: 5
 
+# Archives
+jekyll-archives:
+  enabled:
+    - categories
+    - tags
+  layout: category_archives
+  permalinks:
+    category: /categories/:name/
+    tag: /tags/:name/
+
 plugins:
+  - jekyll-archives
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap

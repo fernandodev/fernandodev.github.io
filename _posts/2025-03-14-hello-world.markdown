@@ -2,11 +2,11 @@
 layout: post
 title:  "Hello World"
 date:   2025-03-14 21:24:58 +0100
-# categories: jekyll
-# tags:
-#   - inspiration
-#   - jekyll
-#   - initial
+categories: jekyll
+tags:
+  - inspiration
+  - jekyll
+  - initial
 keywords:
   - Blog setup
   - GitHub Pages
