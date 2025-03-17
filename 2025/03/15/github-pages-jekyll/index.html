@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Jekyll without githubpages gem limitation</title>
+  <meta name="description" content="Finally! It is there and alive! This blog is now fully functional without the limitations of github-pages gem. But hey! How did I even do that? Can I still remember it? Let’s see the digested steps:">
+  
+    
+    <meta name="keywords" content="Blog setup,GitHub Pages,Jekyll">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://fernandodev.com/2025/03/15/github-pages-jekyll/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="fernandodev" href="https://fernandodev.com/feed.xml">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+  
+  <meta property="og:title" content="Jekyll without githubpages gem limitation">
+  <meta property="og:site_name" content="fernandodev">
+  <meta property="og:url" content="https://fernandodev.com/2025/03/15/github-pages-jekyll/">
+  <meta property="og:description" content="Finally! It is there and alive! This blog is now fully functional without the limitations of github-pages gem. But hey! How did I even do that? Can I still remember it? Let’s see the digested steps:">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Jekyll without githubpages gem limitation">
+  <meta name="twitter:description" content="Finally! It is there and alive! This blog is now fully functional without the limitations of github-pages gem. But hey! How did I even do that? Can I still remember it? Let’s see the digested steps:">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+  
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RBGR5RMY7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5RBGR5RMY7');
+    </script>
+  
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">fernandodev</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/fernandodev">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Jekyll without githubpages gem limitation</h1>
+    
+    <p class="post-meta"><time datetime="2025-03-15T20:20:58+00:00" itemprop="datePublished">Mar 15, 2025</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/jekyll/">jekyll</a>,
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/github-pages/">github-pages</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+        <a href="/tags/jekyll/">jekyll</a>
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><img src="https://cdn.leonardo.ai/users/cb839a97-ac87-4b03-b1f8-a6069e1c7916/generations/317ffff3-add0-451d-8426-0f530ec56acc/Leonardo_Anime_XL_a_human_baby_inside_of_an_ultra_high_tech_eg_1.jpg" alt="a human baby inside of an ultra high tech egg" loading="lazy" /></p>
+
+<p>Finally! It is there and alive! This blog is now fully functional without the limitations of github-pages gem. But hey! How did I even do that? Can I still remember it? Let’s see the digested steps:</p>
+
+<!-- more -->
+
+<h2>Getting started</h2>
+
+<ul>
+  <li><em>Did you even GPT?</em></li>
+  <li>Of course. But honestly it did not resolve or the reply was too lost in itself.</li>
+</ul>
+
+<p>I’ve took sometime to read and learn a bit about the github actions and wow! I am amazed! 🤯 It is really powerful and versatile.</p>
+
+<p>So here is the problem:</p>
+
+<ol>
+  <li>The theme of this blog is not supported by github pages https://pages.github.com/themes/</li>
+  <li>jekyll-archives plugin is also not supported</li>
+</ol>
+
+<p>Then I was scretching my head, how come? Such simple thing! It just needs to build the project and then run the server.</p>
+
+<p>So the only way to “bypass” that limitation is by either doing it manually (which is fine, tbh) or creating a github action that will do:</p>
+
+<ol>
+  <li>fetch the project</li>
+  <li>install the gems</li>
+  <li>build the project</li>
+  <li>push to your target branch the generated <code class="language-plaintext highlighter-rouge">_site</code></li>
+</ol>
+
+<h2>Setting up the repo</h2>
+
+<p><strong>On settings/page</strong></p>
+
+<p><img src="https://i.postimg.cc/yYw2CTy9/Screenshot-2025-03-17-at-20-31-55.png" alt="page setup" /></p>
+
+<p>Source: deploy from a branch
+Branch: gh-pages (the script will create this branch automatically)</p>
+
+<p><strong>then on settings/actions/general</strong></p>
+
+<p><img src="https://i.postimg.cc/7Z3t8r68/Screenshot-2025-03-17-at-20-34-05.png" alt="gh action" /></p>
+
+<p>This will give sufficient rights to <code class="language-plaintext highlighter-rouge">GITHUB_TOKEN</code> reserved env secret</p>
+
+<h2>Creating the action</h2>
+
+<p>This will create the workflow that GH will pick to run</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mkdir -p .github/workflows
+touch jekyll-github-pages.yml
+</code></pre></div></div>
+
+<p>and in the file <strong>jekyll-github-pages.yml</strong></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">name</span><span class="pi">:</span> <span class="s">Build and Deploy a Jekyll Site to GitHub Pages</span>
+
+<span class="na">on</span><span class="pi">:</span>
+  <span class="na">push</span><span class="pi">:</span>
+    <span class="na">branches</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="s">main</span>
+
+<span class="na">jobs</span><span class="pi">:</span>
+  <span class="na">jekyll</span><span class="pi">:</span>
+    <span class="na">runs-on</span><span class="pi">:</span> <span class="s">macos-latest</span>
+    <span class="na">steps</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">📂 setup</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">actions/checkout@v2</span>
+
+        <span class="c1"># include the lines below if you are using jekyll-last-modified-at</span>
+        <span class="c1"># or if you would otherwise need to fetch the full commit history</span>
+        <span class="c1"># however this may be very slow for large repositories!</span>
+        <span class="c1"># with:</span>
+        <span class="c1"># fetch-depth: '0'</span>
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">💎 setup ruby</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">ruby/setup-ruby@v1</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">ruby-version</span><span class="pi">:</span> <span class="m">3.2</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🔨 install dependencies &amp; build site</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">limjh16/jekyll-action-ts@v2</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">enable_cache</span><span class="pi">:</span> <span class="kc">true</span>
+
+      <span class="pi">-</span> <span class="na">name</span><span class="pi">:</span> <span class="s">🚀 deploy</span>
+        <span class="na">uses</span><span class="pi">:</span> <span class="s">peaceiris/actions-gh-pages@v3</span>
+        <span class="na">with</span><span class="pi">:</span>
+          <span class="na">github_token</span><span class="pi">:</span> <span class="s">$</span>
+          <span class="na">publish_dir</span><span class="pi">:</span> <span class="s">./_site</span>
+          <span class="c1"># if the repo you are deploying to is &lt;username&gt;.github.io, uncomment the line below.</span>
+          <span class="c1"># if you are including the line below, make sure your source files are NOT in the "main" branch:</span>
+          <span class="c1"># publish_branch: main</span>
+</code></pre></div></div>
+
+<p>You literally don’t need to change anything.</p>
+
+<p>Now I have to say that <a href="https://www.moncefbelyamani.com/making-github-pages-work-with-latest-jekyll">this blog</a> has helped me a lot.</p>
+
+<p>With a bit of effort, debugging, in no time i got it running correctly.</p>
+
+<p>In the end the script will create a <code class="language-plaintext highlighter-rouge">gh-pages</code> branch and there will upload ONLY the contents of <code class="language-plaintext highlighter-rouge">_site</code> with a special file called <code class="language-plaintext highlighter-rouge">.nojekyll</code>. This file will tell Github to serve the contents as it is, skipping the jekyll build phase.</p>
+
+<h2>Reflection of the day</h2>
+
+<p>My friend, <a href="https://holyswift.app/">Leonardo</a> once told me:</p>
+
+<blockquote>
+  <p>After you reach a plateau in your career, it is very likely that if you stop studying, your skill will actually start to degrade over time. The only way to avoid it is to simply learn everyday a little bit of this and that. With time, it will accumulate and you’ll have a wide range of knowledge. If you compare yourself with someone that reached its plateau, but did not act to continue learn, the gap between the two of you will be huge, sometimes so big that it won’t be able to follow each other.</p>
+</blockquote>
+
+<p>He then dropped me a chart:</p>
+
+<p><img src="https://i.imgflip.com/9np2o0.jpg" alt="Career progress" /></p>
+
+<p>I can only agree.</p>
+
+<h2>Music</h2>
+
+<p>Porcupine Tree is one of the bands that I often listen to, and it never disappoints me.</p>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/4McAd0Ki8W0L5VMAzQfgwj?utm_source=generator" width="100%" height="120" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; fernandodev - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://fernandodev.com/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
