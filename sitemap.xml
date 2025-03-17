@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<url>
+<loc>https://fernandodev.com/2025/03/14/hello-world/</loc>
+<lastmod>2025-03-14T20:24:58+00:00</lastmod>
+</url>
+<url>
+<loc>https://fernandodev.com/about/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/archives/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/tags/inspiration/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/tags/jekyll/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/tags/initial/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/categories/jekyll/</loc>
+</url>
+</urlset>
