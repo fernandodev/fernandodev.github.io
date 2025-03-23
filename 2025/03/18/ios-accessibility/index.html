@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Implementing accessible views on iOS/SwiftUI</title>
+  <meta name="description" content="These days I was working on making the iOS application complaint to the new EU regulations for accessibility. With a proper auditory of the app, it is rather easy to implement a better accessibility. However I must say, until this momentm I did not find ANY testing framework that actually covers accessibility as it is required by law. We have AccessibilitySnapshot that is very limited, we also have ViewInspector which you can try to guarantee certain attributes. But I couldn’t find a framework that would tell me: hey you are not doing it right, group these elements, this and that should have a different accessibilityTrait etc. (In fact there is one, but I am not mentioning because it relies on ui-test and on top of that it did not find any really useful issue).">
+  
+    
+    <meta name="keywords" content="ios,accessibility,swiftui,swift">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://fernandodev.com/2025/03/18/ios-accessibility/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="fernandodev" href="https://fernandodev.com/feed.xml">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+  
+  <meta property="og:title" content="Implementing accessible views on iOS/SwiftUI">
+  <meta property="og:site_name" content="fernandodev">
+  <meta property="og:url" content="https://fernandodev.com/2025/03/18/ios-accessibility/">
+  <meta property="og:description" content="These days I was working on making the iOS application complaint to the new EU regulations for accessibility. With a proper auditory of the app, it is rather easy to implement a better accessibility. However I must say, until this momentm I did not find ANY testing framework that actually covers accessibility as it is required by law. We have AccessibilitySnapshot that is very limited, we also have ViewInspector which you can try to guarantee certain attributes. But I couldn’t find a framework that would tell me: hey you are not doing it right, group these elements, this and that should have a different accessibilityTrait etc. (In fact there is one, but I am not mentioning because it relies on ui-test and on top of that it did not find any really useful issue).">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Implementing accessible views on iOS/SwiftUI">
+  <meta name="twitter:description" content="These days I was working on making the iOS application complaint to the new EU regulations for accessibility. With a proper auditory of the app, it is rather easy to implement a better accessibilit...">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+  
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RBGR5RMY7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5RBGR5RMY7');
+    </script>
+  
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">fernandodev</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/fernandodev">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Implementing accessible views on iOS/SwiftUI</h1>
+    
+    <p class="post-meta"><time datetime="2025-03-18T18:00:00+00:00" itemprop="datePublished">Mar 18, 2025</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/ios/">ios</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/ios/">ios</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/swift/">swift</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/swiftui/">swiftui</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/accessibility/">accessibility</a>
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p><img src="https://i.postimg.cc/Ls73wNMZ/accessibility-og.jpg" alt="accessibility" /></p>
+
+<p>These days I was working on making the iOS application complaint to the <a href="https://commission.europa.eu/strategy-and-policy/policies/justice-and-fundamental-rights/disability/union-equality-strategy-rights-persons-disabilities-2021-2030/european-accessibility-act_en">new EU regulations for accessibility</a>. With a proper auditory of the app, it is rather easy to implement a better accessibility.</p>
+
+<p>However I must say, until this momentm I did not find ANY testing framework that actually covers accessibility as it is required by law.</p>
+
+<p>We have <a href="https://github.com/cashapp/AccessibilitySnapshot">AccessibilitySnapshot</a> that is very limited, we also have <a href="https://github.com/nalexn/ViewInspector">ViewInspector</a> which you can try to guarantee certain attributes. But I couldn’t find a framework that would tell me: hey you are not doing it right, group these elements, this and that should have a different accessibilityTrait etc. (In fact there is one, but I am not mentioning because it relies on ui-test and on top of that it did not find any really useful issue).</p>
+
+<!-- more -->
+
+<h2>Getting Started</h2>
+
+<p>This is not a tutorial, it is simply the findings I had after doing several tasks related to accessibility.</p>
+
+<p>You’ll have to be familiar with <code class="language-plaintext highlighter-rouge">Accessibility Inspector</code> tool that is available on <code class="language-plaintext highlighter-rouge">Xcode</code>. So let’s start with that.</p>
+
+<h3>Accessibility Inspector</h3>
+
+<p>This is a tool that comes with XCode.</p>
+
+<p><img src="https://i.postimg.cc/25Yq76p3/Screenshot-2025-03-20-at-20-50-36.png" alt="Accessibility Inspector" /></p>
+
+<p>In a way, similar to Xcode, you have the target which you can select. From my experience, a bit buggy. If you are using the simulator you can both use the mac target or the simulator. It may change what is available as actions, since in one you are simulating using a computer and the other a phone.</p>
+
+<p>Then we have a target (<img src="https://i.postimg.cc/1tCfSr8N/Screenshot-2025-03-20-at-20-53-51.png" height="20" />), which you can use to inspect a view. (Also a bit buggy so be patient when using it with a complex view hierarchy).</p>
+
+<p>The <strong>basics</strong> display the selected element accessibility attributes, such as label (what the voice over will read), the traits (how it will be interpreted), identifier (hidden from the user, but useful for ui-tests)</p>
+
+<p>The <strong>actions</strong> are the possible actions that can be executed from this accessible element. You have default actions, such as <em>activate</em>, but also you can add custom actions to it, such as the <em>delete</em>.</p>
+
+<p>There are other sections, but they are not that useful, they are more informational.</p>
+
+<h3>Traits</h3>
+
+<p>Traits are useful information for the user to understand the context of the screen. A common trait that is often missing and adds context of section header is the <em>“isHeader”</em>.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Text</span><span class="p">(</span><span class="s">"Title"</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">largeTitle</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">bold</span><span class="p">()</span>
+  <span class="o">.</span><span class="nf">accessibilityAddTraits</span><span class="p">(</span><span class="o">.</span><span class="n">isHeader</span><span class="p">)</span></code></pre></figure>
+
+<p>Another trait that I faced was <em>“isLink”</em>. It often comes that you have terms and conditions that are linked to the webview for more details. They are not really a button.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Text</span><span class="p">(</span><span class="s">"Terms and conditions ...."</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">caption</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">tapGesture</span> <span class="p">{</span> <span class="nf">openTermsConditions</span><span class="p">()</span> <span class="p">}</span>
+  <span class="o">.</span><span class="nf">accessibilityAddTraits</span><span class="p">(</span><span class="o">.</span><span class="n">isLink</span><span class="p">)</span></code></pre></figure>
+
+<p>And finally the last one that is often asked is the <em>isButton</em>. This one comes out of the box if you are using <code class="language-plaintext highlighter-rouge">SwiftUI.Button</code>, however if you have made your own custom button implementation, then you need to add this trait.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Text</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">headline</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+  <span class="o">.</span><span class="nf">background</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+  <span class="o">.</span><span class="nf">cornerRadius</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+  <span class="o">.</span><span class="n">onTapGesture</span> <span class="p">{</span> <span class="nf">action</span><span class="p">()</span> <span class="p">}</span>
+  <span class="o">.</span><span class="nf">accessibilityAddTraits</span><span class="p">(</span><span class="o">.</span><span class="n">isButton</span><span class="p">)</span></code></pre></figure>
+
+<h2>Grouping elements or hiding it</h2>
+
+<p>Another common complain is that elements that are related to each other should be grouped. For example, if you have a Card container that has several labels/buttons with information, they all should be grouped into the parent (Card) and be treated as a single element.</p>
+
+<p>Let’s imagine the following view with title/subtitle, image and a button for an action.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kd">struct</span> <span class="kt">ContentView</span><span class="p">:</span> <span class="kt">View</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">body</span><span class="p">:</span> <span class="kd">some</span> <span class="kt">View</span> <span class="p">{</span>
+        <span class="kt">VStack</span><span class="p">(</span><span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">leading</span><span class="p">,</span> <span class="nv">spacing</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kt">HStack</span> <span class="p">{</span>
+                <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"star.fill"</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span>
+                <span class="kt">VStack</span> <span class="p">{</span>
+                    <span class="kt">Text</span><span class="p">(</span><span class="s">"Title"</span><span class="p">)</span>
+                        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">largeTitle</span><span class="p">)</span>
+                        <span class="o">.</span><span class="nf">bold</span><span class="p">()</span>
+                        <span class="o">.</span><span class="nf">accessibilityAddTraits</span><span class="p">(</span><span class="o">.</span><span class="n">isHeader</span><span class="p">)</span>
+
+                    <span class="kt">Text</span><span class="p">(</span><span class="s">"Subtitle"</span><span class="p">)</span>
+                        <span class="o">.</span><span class="nf">font</span><span class="p">(</span><span class="o">.</span><span class="n">subheadline</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="kt">Button</span><span class="p">(</span><span class="nv">action</span><span class="p">:</span> <span class="p">{</span>
+                <span class="c1">// Button action here</span>
+            <span class="p">})</span> <span class="p">{</span>
+                <span class="kt">Text</span><span class="p">(</span><span class="s">"Press Me"</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+                    <span class="o">.</span><span class="nf">background</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+                    <span class="o">.</span><span class="nf">cornerRadius</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>There are two problems here, one if the image is relevant then it should have an accessibility label and second the user has to read one element at time.</p>
+
+<p>The solution is rather simple:</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">VStack</span><span class="p">(</span><span class="nv">alignment</span><span class="p">:</span> <span class="o">.</span><span class="n">leading</span><span class="p">,</span> <span class="nv">spacing</span><span class="p">:</span> <span class="mi">10</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">Image</span><span class="p">(</span><span class="nv">systemName</span><span class="p">:</span> <span class="s">"star.fill"</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">yellow</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">accessibilityLabel</span><span class="p">(</span><span class="s">"Starred content"</span><span class="p">)</span>
+    <span class="o">...</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+<span class="o">.</span><span class="nf">accessibilityElement</span><span class="p">(</span><span class="nv">children</span><span class="p">:</span> <span class="o">.</span><span class="n">combine</span><span class="p">)</span></code></pre></figure>
+
+<p>The <code class="language-plaintext highlighter-rouge">.combine</code> will make the voice reader to read all elements at once, one after another.</p>
+
+<h2>accessibilityAction</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">accessibilityAction</code> function in iOS Swift is used to define custom accessibility actions for UI elements, improving the app’s usability for VoiceOver and Switch Control users. It allows developers to add specific actions that assistive technologies can recognize and execute, beyond the default interactions like tapping or swiping. You should use <code class="language-plaintext highlighter-rouge">accessibilityAction</code> when you need to provide alternative or additional functionality for users with accessibility needs, such as marking an item as “favorite” or navigating to a different section. This function enhances accessibility by ensuring that all users, including those with disabilities, can fully interact with the app’s features.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="kt">Button</span><span class="p">(</span><span class="nv">action</span><span class="p">:</span> <span class="p">{</span>
+    <span class="n">viewModel</span><span class="o">.</span><span class="nf">action</span><span class="p">()</span>
+<span class="p">})</span> <span class="p">{</span>
+    <span class="kt">Text</span><span class="p">(</span><span class="s">"Press Me"</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">padding</span><span class="p">()</span>
+        <span class="o">.</span><span class="nf">background</span><span class="p">(</span><span class="kt">Color</span><span class="o">.</span><span class="n">blue</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">foregroundColor</span><span class="p">(</span><span class="o">.</span><span class="n">white</span><span class="p">)</span>
+        <span class="o">.</span><span class="nf">cornerRadius</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="p">}</span>
+<span class="o">.</span><span class="n">accessibilityAction</span> <span class="p">{</span>
+    <span class="n">viewModel</span><span class="o">.</span><span class="nf">action</span><span class="p">()</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And remember, since you are using <code class="language-plaintext highlighter-rouge">.combine</code> strategy, it will also combine all actions.</p>
+
+<h2>Announcement</h2>
+
+<p>The <code class="language-plaintext highlighter-rouge">AccessibilityNotification.Announcement().post</code> function in iOS Swift is used to send accessibility announcements to VoiceOver users. It allows developers to notify assistive technologies about important changes in the app’s UI that may not be automatically detected, such as dynamic content updates or status changes (e.g., “Download completed” or “Error occurred”). You should use this function when critical information needs to be conveyed to users relying on VoiceOver, ensuring they are aware of updates that might not be visually apparent. This improves accessibility by making real-time updates more inclusive and user-friendly.</p>
+
+<figure class="highlight"><pre><code class="language-swift" data-lang="swift"><span class="k">var</span> <span class="nv">highPriorityAnnouncement</span> <span class="o">=</span> <span class="kt">AttributedString</span><span class="p">(</span><span class="s">"Email address is invalid"</span><span class="p">)</span>
+<span class="n">highPriorityAnnouncement</span><span class="o">.</span><span class="n">accessibilitySpeechAnnouncementPriority</span> <span class="o">=</span> <span class="o">.</span><span class="n">high</span>
+<span class="kt">AccessibilityNotification</span><span class="o">.</span><span class="kt">Announcement</span><span class="p">(</span><span class="n">highPriorityAnnouncement</span><span class="p">)</span><span class="o">.</span><span class="nf">post</span><span class="p">()</span></code></pre></figure>
+
+<h2>Reflection of the day</h2>
+
+<p><em>If you could put everything you’ve learned in your career on a paper how long would it take? It is easier to do little snippets every day when you learn something new…</em></p>
+
+<h2>Music</h2>
+
+<p>I remember playing this music on Guitar Hero …. good old times.</p>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/0FLBNqc5oAiTt4J2e3fe3y?utm_source=generator" width="100%" height="120" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; fernandodev - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://fernandodev.com/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
