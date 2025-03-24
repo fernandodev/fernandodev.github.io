@@ -8,8 +8,14 @@ Personal blog: programming, ideas and a lot of try and error.
 Running locally:
 
 ```
-bundle exec jekyll build
-bundle exec jekyll s
+rake site:build
+rake site:serve
+```
+
+Creating a new post:
+
+```
+rake blog:new_post["The title of the post"]
 ```
 
 ## Licence
