@@ -5,7 +5,7 @@
   
   <link href="https://fernandodev.com/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://fernandodev.com/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2025-03-23T19:14:13+00:00</updated>
+  <updated>2025-03-24T19:30:08+00:00</updated>
   <id>https://fernandodev.com/</id>
 
   
@@ -24,6 +24,65 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Is my commit in the release branch?</title>
+      
+      
+      <link href="https://fernandodev.com/2025/03/24/is-my-commit-in-the-release-branch/" rel="alternate" type="text/html" title="Is my commit in the release branch?" />
+      
+      <published>2025-03-24T19:21:28+00:00</published>
+      <updated>2025-03-24T19:21:28+00:00</updated>
+      <id>https://fernandodev.com/2025/03/24/is-my-commit-in-the-release-branch</id>
+      <content type="html" xml:base="https://fernandodev.com/2025/03/24/is-my-commit-in-the-release-branch/">&lt;p&gt;Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind.&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;VERSION&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;2.4
+&lt;span class=&quot;nv&quot;&gt;COMMIT_HASH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;123acaef123acaed
+git log origin/release/&lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;VERSION&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;grep&lt;/span&gt; &lt;span class=&quot;si&quot;&gt;$(&lt;/span&gt;COMMIT_HASH&lt;span class=&quot;si&quot;&gt;)&lt;/span&gt; | &lt;span class=&quot;nb&quot;&gt;wc&lt;/span&gt; &lt;span class=&quot;nt&quot;&gt;-l&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;git log&lt;/code&gt; - that’s I assume it is ok, just checking the &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;origin&lt;/code&gt; branch&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;grep&lt;/code&gt; - also I think that’s ok, just finding the commit hash from the git log list&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;wc -l&lt;/code&gt; - stands for word count and is a command-line utility that counts the number of lines, words, characters, and bytes in a file. and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;-l&lt;/code&gt; flag tells wc to count only the number of lines.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;and there you go! You have effortlessly checked if your commit was present in a specific remote branch&lt;/p&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>fernandodev</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="git" />
+      
+
+      
+        <category term="git" />
+      
+        <category term="release" />
+      
+
+      
+        <summary type="html">Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind. VERSION=2.4 COMMIT_HASH=123acaef123acaed git log origin/release/$(VERSION) | grep $(COMMIT_HASH) | wc -l git log - that’s I assume it is ok, just checking the origin branch grep - also I think that’s ok, just finding the commit hash from the git log list wc -l - stands for word count and is a command-line utility that counts the number of lines, words, characters, and bytes in a file. and -l flag tells wc to count only the number of lines. and there you go! You have effortlessly checked if your commit was present in a specific remote branch</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>

@@ -103,6 +103,147 @@
         <header class="post-header">
           <h1 class="post-title">
             
+              <a class="post-link" href="/2025/03/24/is-my-commit-in-the-release-branch/">Is my commit in the release branch?</a>
+            
+          </h1>
+
+          <p class="post-meta">
+            Mar 24, 2025
+            
+               •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/git/">git</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/git/">git</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/release/">release</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+            
+            
+          </p>
+        </header>
+
+        <div class="post-content">
+          <p>Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">VERSION</span><span class="o">=</span>2.4
+<span class="nv">COMMIT_HASH</span><span class="o">=</span>123acaef123acaed
+git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span> | <span class="nb">grep</span> <span class="si">$(</span>COMMIT_HASH<span class="si">)</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">git log</code> - that’s I assume it is ok, just checking the <code class="language-plaintext highlighter-rouge">origin</code> branch</li>
+  <li><code class="language-plaintext highlighter-rouge">grep</code> - also I think that’s ok, just finding the commit hash from the git log list</li>
+  <li><code class="language-plaintext highlighter-rouge">wc -l</code> - stands for word count and is a command-line utility that counts the number of lines, words, characters, and bytes in a file. and <code class="language-plaintext highlighter-rouge">-l</code> flag tells wc to count only the number of lines.</li>
+</ol>
+
+<p>and there you go! You have effortlessly checked if your commit was present in a specific remote branch</p>
+
+
+        </div>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            
               <a class="post-link" href="/2025/03/18/ios-accessibility/">Implementing accessible views on iOS/SwiftUI</a>
             
           </h1>
@@ -133,7 +274,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/ios/">ios</a>
+      
+    
       
     
   
@@ -151,6 +298,12 @@
     
       
         <a href="/tags/ios/">ios</a>,
+      
+    
+      
+    
+      
+    
       
     
       
@@ -190,6 +343,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
     
@@ -205,6 +364,12 @@
     
       
         <a href="/tags/swiftui/">swiftui</a>,
+      
+    
+      
+    
+      
+    
       
     
       
@@ -232,6 +397,12 @@
     
       
         <a href="/tags/accessibility/">accessibility</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -299,7 +470,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/jekyll/">jekyll</a>,
+      
+    
       
     
       
@@ -308,6 +485,10 @@
     
   
     
+    
+      
+    
+      
     
       
     
@@ -331,6 +512,8 @@
     
       
     
+      
+    
   
 
 
@@ -342,6 +525,12 @@
     
       
         <a href="/tags/jekyll/">jekyll</a>
+      
+    
+      
+    
+      
+    
       
     
       
@@ -415,7 +604,13 @@
       
     
       
+    
+      
+    
+      
         <a href="/categories/jekyll/">jekyll</a>
+      
+    
       
     
       
@@ -431,6 +626,12 @@
     
       
         <a href="/tags/inspiration/">inspiration</a>,
+      
+    
+      
+    
+      
+    
       
     
       
@@ -476,6 +677,12 @@
     
       
     
+      
+    
+      
+    
+      
+    
   
     
     
@@ -485,6 +692,12 @@
     
       
         <a href="/tags/initial/">initial</a>
+      
+    
+      
+    
+      
+    
       
     
       

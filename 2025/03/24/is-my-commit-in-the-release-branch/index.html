@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Is my commit in the release branch?</title>
+  <meta name="description" content="Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind. VERSION=2.4 COMMIT_HASH=123acaef123acaed git log origin/release/$(VERSION) | grep $(COMMIT_HASH) | wc -l git log - that’s I assume it is ok, just checking the origin branch grep - also I think that’s ok, just finding the commit hash from the git log list wc -l - stands for word count and is a command-line utility that counts the number of lines, words, characters, and bytes in a file. and -l flag tells wc to count only the number of lines. and there you go! You have effortlessly checked if your commit was present in a specific remote branch">
+  
+    
+    <meta name="keywords" content="git log branch release">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://fernandodev.com/2025/03/24/is-my-commit-in-the-release-branch/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="fernandodev" href="https://fernandodev.com/feed.xml">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+  
+  <meta property="og:title" content="Is my commit in the release branch?">
+  <meta property="og:site_name" content="fernandodev">
+  <meta property="og:url" content="https://fernandodev.com/2025/03/24/is-my-commit-in-the-release-branch/">
+  <meta property="og:description" content="Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind. VERSION=2.4 COMMIT_HASH=123acaef123acaed git log origin/release/$(VERSION) | grep $(COMMIT_HASH) | wc -l git log - that’s I assume it is ok, just checking the origin branch grep - also I think that’s ok, just finding the commit hash from the git log list wc -l - stands for word count and is a command-line utility that counts the number of lines, words, characters, and bytes in a file. and -l flag tells wc to count only the number of lines. and there you go! You have effortlessly checked if your commit was present in a specific remote branch">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Is my commit in the release branch?">
+  <meta name="twitter:description" content="Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind. VERSION=2.4 COMMIT_HASH=123...">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+  
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RBGR5RMY7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5RBGR5RMY7');
+    </script>
+  
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">fernandodev</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/fernandodev">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Is my commit in the release branch?</h1>
+    
+    <p class="post-meta"><time datetime="2025-03-24T19:21:28+00:00" itemprop="datePublished">Mar 24, 2025</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/git/">git</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/git/">git</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/release/">release</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Today I stumbled upon having to know if a specific commit was present or not in the release branch. I of course checked stackoverflow, i didn’t have it right in my mind.</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">VERSION</span><span class="o">=</span>2.4
+<span class="nv">COMMIT_HASH</span><span class="o">=</span>123acaef123acaed
+git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span> | <span class="nb">grep</span> <span class="si">$(</span>COMMIT_HASH<span class="si">)</span> | <span class="nb">wc</span> <span class="nt">-l</span>
+</code></pre></div></div>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">git log</code> - that’s I assume it is ok, just checking the <code class="language-plaintext highlighter-rouge">origin</code> branch</li>
+  <li><code class="language-plaintext highlighter-rouge">grep</code> - also I think that’s ok, just finding the commit hash from the git log list</li>
+  <li><code class="language-plaintext highlighter-rouge">wc -l</code> - stands for word count and is a command-line utility that counts the number of lines, words, characters, and bytes in a file. and <code class="language-plaintext highlighter-rouge">-l</code> flag tells wc to count only the number of lines.</li>
+</ol>
+
+<p>and there you go! You have effortlessly checked if your commit was present in a specific remote branch</p>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; fernandodev - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://fernandodev.com/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

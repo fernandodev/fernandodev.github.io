@@ -13,6 +13,10 @@
 <lastmod>2025-03-18T18:00:00+00:00</lastmod>
 </url>
 <url>
+<loc>https://fernandodev.com/2025/03/24/is-my-commit-in-the-release-branch/</loc>
+<lastmod>2025-03-24T19:21:28+00:00</lastmod>
+</url>
+<url>
 <loc>https://fernandodev.com/about/</loc>
 </url>
 <url>
@@ -43,6 +47,12 @@
 <loc>https://fernandodev.com/tags/accessibility/</loc>
 </url>
 <url>
+<loc>https://fernandodev.com/tags/git/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/tags/release/</loc>
+</url>
+<url>
 <loc>https://fernandodev.com/categories/jekyll/</loc>
 </url>
 <url>
@@ -50,5 +60,8 @@
 </url>
 <url>
 <loc>https://fernandodev.com/categories/ios/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/categories/git/</loc>
 </url>
 </urlset>
