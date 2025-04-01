@@ -103,6 +103,256 @@
         <header class="post-header">
           <h1 class="post-title">
             
+              <a class="post-link" href="/2025/04/01/should-it-crash/">Should it crash?</a>
+            
+          </h1>
+
+          <p class="post-meta">
+            Apr 1, 2025
+            
+               •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/swift/">swift</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/swift/">swift</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/crash/">crash</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/optional/">optional</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/unwrap/">unwrap</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+
+            
+            
+          </p>
+        </header>
+
+        <div class="post-content">
+          <p>Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code bridged to swift as an implicit unwrapped (!). So here is the snippet, more or less:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The bridged generated interface from the objective-c</span>
+<span class="kd">class</span> <span class="kt">BridgedClass</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">importantNote</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span> <span class="c1">// contains a nil value</span>
+<span class="p">}</span>
+
+<span class="c1">// ... then I had a function:</span>
+
+<span class="kd">func</span> <span class="nf">doSomething</span><span class="p">(</span><span class="nv">importantNote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// ... and it was called</span>
+
+<span class="nf">doSomething</span><span class="p">(</span><span class="nv">importantNote</span><span class="p">:</span> <span class="n">myBridgedInstance</span><span class="o">.</span><span class="n">importantNote</span><span class="p">)</span> <span class="c1">// Should it crash?</span>
+</code></pre></div></div>
+
+
+        </div>
+        
+          <p class="post-continue">
+            <a href="/2025/04/01/should-it-crash/">Read on &rarr;</a>
+          </p>
+        
+      </li>
+    
+      
+      
+
+      <li>
+        <header class="post-header">
+          <h1 class="post-title">
+            
               <a class="post-link" href="/2025/03/24/is-my-commit-in-the-release-branch/">Is my commit in the release branch?</a>
             
           </h1>
@@ -139,7 +389,15 @@
       
     
       
+    
+      
+    
+      
+    
+      
         <a href="/categories/git/">git</a>
+      
+    
       
     
   
@@ -177,6 +435,14 @@
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
   
     
     
@@ -198,6 +464,14 @@
     
       
         <a href="/tags/release/">release</a>
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -278,7 +552,15 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
       
     
       
+    
+      
+    
+      
+    
+      
         <a href="/categories/ios/">ios</a>
+      
+    
       
     
       
@@ -298,6 +580,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
         <a href="/tags/ios/">ios</a>,
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -349,6 +639,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
   
     
     
@@ -364,6 +662,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
         <a href="/tags/swiftui/">swiftui</a>,
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -397,6 +703,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
         <a href="/tags/accessibility/">accessibility</a>
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -474,7 +788,15 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
       
     
       
+    
+      
+    
+      
+    
+      
         <a href="/categories/jekyll/">jekyll</a>,
+      
+    
       
     
       
@@ -485,6 +807,12 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
   
     
+    
+      
+    
+      
+    
+      
     
       
     
@@ -514,6 +842,8 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
     
+      
+    
   
 
 
@@ -525,6 +855,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
         <a href="/tags/jekyll/">jekyll</a>
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -608,7 +946,15 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
       
     
       
+    
+      
+    
+      
+    
+      
         <a href="/categories/jekyll/">jekyll</a>
+      
+    
       
     
       
@@ -626,6 +972,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
         <a href="/tags/inspiration/">inspiration</a>,
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       
@@ -683,6 +1037,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
     
+      
+    
+      
+    
+      
+    
+      
+    
   
     
     
@@ -692,6 +1054,14 @@ git log origin/release/<span class="si">$(</span>VERSION<span class="si">)</span
     
       
         <a href="/tags/initial/">initial</a>
+      
+    
+      
+    
+      
+    
+      
+    
       
     
       

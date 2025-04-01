@@ -5,7 +5,7 @@
   
   <link href="https://fernandodev.com/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://fernandodev.com/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2025-03-24T19:30:08+00:00</updated>
+  <updated>2025-04-01T18:45:39+00:00</updated>
   <id>https://fernandodev.com/</id>
 
   
@@ -24,6 +24,97 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Should it crash?</title>
+      
+      
+      <link href="https://fernandodev.com/2025/04/01/should-it-crash/" rel="alternate" type="text/html" title="Should it crash?" />
+      
+      <published>2025-04-01T18:25:27+00:00</published>
+      <updated>2025-04-01T18:25:27+00:00</updated>
+      <id>https://fernandodev.com/2025/04/01/should-it-crash</id>
+      <content type="html" xml:base="https://fernandodev.com/2025/04/01/should-it-crash/">&lt;p&gt;Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code bridged to swift as an implicit unwrapped (!). So here is the snippet, more or less:&lt;/p&gt;
+
+&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// The bridged generated interface from the objective-c&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;BridgedClass&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// contains a nil value&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ... then I had a function:&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;note&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;// ... and it was called&lt;/span&gt;
+
+&lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myBridgedInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// Should it crash?&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;!-- more --&gt;
+
+&lt;p&gt;The answer as you may already know is &lt;strong&gt;IT DOESN’T CRASH!&lt;/strong&gt;, but why? Isn’t &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;myBridgedInstance.importantNote&lt;/code&gt; accessing a &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nil&lt;/code&gt; value? Why it is printing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;nil&lt;/code&gt;?&lt;/p&gt;
+
+&lt;p&gt;So to understand that I went to a swift playground and in short what is happening underhood is:&lt;/p&gt;
+
+&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;myBridgedInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;// this is same as:&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;Optional&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;myBridgedInstance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nf&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;And therefore it won’t crash, as it is now an &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;Optional&lt;/code&gt;. Crazy huh? However if by any chance the developer had changed the signature of the method to:&lt;/p&gt;
+
+&lt;div class=&quot;language-swift highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;func&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;doSomething&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;importantNote&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then it would crash on his face!&lt;/p&gt;
+
+&lt;h2&gt;Music&lt;/h2&gt;
+
+&lt;p&gt;A bit of this and that… old times&lt;/p&gt;
+
+&lt;iframe style=&quot;border-radius:12px&quot; src=&quot;https://open.spotify.com/embed/track/7lOXNXztcb8CQ8UoroiNxW?utm_source=generator&quot; width=&quot;100%&quot; height=&quot;120&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot; allow=&quot;autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture&quot; loading=&quot;lazy&quot;&gt;&lt;/iframe&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>fernandodev</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="swift" />
+      
+
+      
+        <category term="swift" />
+      
+        <category term="crash" />
+      
+        <category term="optional" />
+      
+        <category term="unwrap" />
+      
+
+      
+        <summary type="html">Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code bridged to swift as an implicit unwrapped (!). So here is the snippet, more or less: // The bridged generated interface from the objective-c class BridgedClass { var importantNote: String! // contains a nil value } // ... then I had a function: func doSomething(importantNote: String?) { print(note) } // ... and it was called doSomething(importantNote: myBridgedInstance.importantNote) // Should it crash?</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>

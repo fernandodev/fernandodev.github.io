@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Should it crash?</title>
+  <meta name="description" content="Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code bridged to swift as an implicit unwrapped (!). So here is the snippet, more or less: // The bridged generated interface from the objective-c class BridgedClass { var importantNote: String! // contains a nil value } // ... then I had a function: func doSomething(importantNote: String?) { print(note) } // ... and it was called doSomething(importantNote: myBridgedInstance.importantNote) // Should it crash?">
+  
+    
+    <meta name="keywords" content="swift crash optional">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://fernandodev.com/2025/04/01/should-it-crash/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="fernandodev" href="https://fernandodev.com/feed.xml">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+  
+  <meta property="og:title" content="Should it crash?">
+  <meta property="og:site_name" content="fernandodev">
+  <meta property="og:url" content="https://fernandodev.com/2025/04/01/should-it-crash/">
+  <meta property="og:description" content="Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code bridged to swift as an implicit unwrapped (!). So here is the snippet, more or less: // The bridged generated interface from the objective-c class BridgedClass { var importantNote: String! // contains a nil value } // ... then I had a function: func doSomething(importantNote: String?) { print(note) } // ... and it was called doSomething(importantNote: myBridgedInstance.importantNote) // Should it crash?">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Should it crash?">
+  <meta name="twitter:description" content="Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code b...">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+  
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RBGR5RMY7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5RBGR5RMY7');
+    </script>
+  
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">fernandodev</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/fernandodev">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Should it crash?</h1>
+    
+    <p class="post-meta"><time datetime="2025-04-01T18:25:27+00:00" itemprop="datePublished">Apr 1, 2025</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/swift/">swift</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/swift/">swift</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/crash/">crash</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/optional/">optional</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/unwrap/">unwrap</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>Recently while doing some migration from objective-c to swift and I found a line of code that seemed to me that it should crash, and yet, it didn’t crash on production. It was an objective-c code bridged to swift as an implicit unwrapped (!). So here is the snippet, more or less:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// The bridged generated interface from the objective-c</span>
+<span class="kd">class</span> <span class="kt">BridgedClass</span> <span class="p">{</span>
+    <span class="k">var</span> <span class="nv">importantNote</span><span class="p">:</span> <span class="kt">String</span><span class="o">!</span> <span class="c1">// contains a nil value</span>
+<span class="p">}</span>
+
+<span class="c1">// ... then I had a function:</span>
+
+<span class="kd">func</span> <span class="nf">doSomething</span><span class="p">(</span><span class="nv">importantNote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?)</span> <span class="p">{</span>
+    <span class="nf">print</span><span class="p">(</span><span class="n">note</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// ... and it was called</span>
+
+<span class="nf">doSomething</span><span class="p">(</span><span class="nv">importantNote</span><span class="p">:</span> <span class="n">myBridgedInstance</span><span class="o">.</span><span class="n">importantNote</span><span class="p">)</span> <span class="c1">// Should it crash?</span>
+</code></pre></div></div>
+
+<!-- more -->
+
+<p>The answer as you may already know is <strong>IT DOESN’T CRASH!</strong>, but why? Isn’t <code class="language-plaintext highlighter-rouge">myBridgedInstance.importantNote</code> accessing a <code class="language-plaintext highlighter-rouge">nil</code> value? Why it is printing <code class="language-plaintext highlighter-rouge">nil</code>?</p>
+
+<p>So to understand that I went to a swift playground and in short what is happening underhood is:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nf">doSomething</span><span class="p">(</span><span class="nv">importantNote</span><span class="p">:</span> <span class="n">myBridgedInstance</span><span class="o">.</span><span class="n">importantNote</span><span class="p">)</span>
+<span class="c1">// this is same as:</span>
+<span class="k">let</span> <span class="nv">importantNote</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span> <span class="o">=</span> <span class="kt">Optional</span><span class="p">(</span><span class="n">myBridgedInstance</span><span class="o">.</span><span class="n">importantNote</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">importantNote</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>And therefore it won’t crash, as it is now an <code class="language-plaintext highlighter-rouge">Optional</code>. Crazy huh? However if by any chance the developer had changed the signature of the method to:</p>
+
+<div class="language-swift highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">func</span> <span class="nf">doSomething</span><span class="p">(</span><span class="nv">importantNote</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>Then it would crash on his face!</p>
+
+<h2>Music</h2>
+
+<p>A bit of this and that… old times</p>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7lOXNXztcb8CQ8UoroiNxW?utm_source=generator" width="100%" height="120" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; fernandodev - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://fernandodev.com/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>
