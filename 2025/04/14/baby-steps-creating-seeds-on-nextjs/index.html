@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  
+  
+  <title>Baby steps: creating seeds on NextJS</title>
+  <meta name="description" content="I come from a background in Ruby on Rails and there things are extremely simple, or at least I find them quite simple. I decided then to start a new pet project using NextJS, I am obviously quite lost. So I am doing little by little, step by step, rediscovering things in a completely different environment. Today I wanted to make a simple task: seed my DB.">
+  
+    
+    <meta name="keywords" content="nextjs prisma seed">
+  
+
+  <link rel="stylesheet" href="/assets/main.css">
+  <link rel="canonical" href="https://fernandodev.com/2025/04/14/baby-steps-creating-seeds-on-nextjs/">
+  
+  
+  <link rel="alternate" type="application/rss+xml" title="fernandodev" href="https://fernandodev.com/feed.xml">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+<link rel="manifest" href="/assets/site.webmanifest">
+
+  
+  <meta property="og:title" content="Baby steps: creating seeds on NextJS">
+  <meta property="og:site_name" content="fernandodev">
+  <meta property="og:url" content="https://fernandodev.com/2025/04/14/baby-steps-creating-seeds-on-nextjs/">
+  <meta property="og:description" content="I come from a background in Ruby on Rails and there things are extremely simple, or at least I find them quite simple. I decided then to start a new pet project using NextJS, I am obviously quite lost. So I am doing little by little, step by step, rediscovering things in a completely different environment. Today I wanted to make a simple task: seed my DB.">
+  
+  
+  <meta name="twitter:card" content="summary">
+  
+  <meta name="twitter:title" content="Baby steps: creating seeds on NextJS">
+  <meta name="twitter:description" content="I come from a background in Ruby on Rails and there things are extremely simple, or at least I find them quite simple. I decided then to start a new pet project using NextJS, I am obviously quite l...">
+  
+  
+
+  <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,400;0,700;1,400&amp;display=swap" rel="stylesheet">
+
+  
+  
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5RBGR5RMY7"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-5RBGR5RMY7');
+    </script>
+  
+
+
+</head>
+
+
+  <body>
+
+    <header class="site-header">
+
+  <div class="wrapper">
+
+    <a class="site-title" href="/">fernandodev</a>
+
+    <nav class="site-nav">
+      
+        
+        <a class="page-link" href="/about/">About</a>
+      
+        
+        <a class="page-link" href="/archives/">Archives</a>
+      
+        
+        <a class="page-link" href="https://github.com/fernandodev">GitHub</a>
+      
+    </nav>
+
+  </div>
+
+</header>
+
+
+    <main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    
+      <h1 class="post-title" itemprop="name headline">Baby steps: creating seeds on NextJS</h1>
+    
+    <p class="post-meta"><time datetime="2025-04-14T18:52:16+00:00" itemprop="datePublished">Apr 14, 2025</time> •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/categories/nextjs/">nextjs</a>
+      
+    
+  
+
+
+ •
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/nextjs/">nextjs</a>,
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+    
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+        <a href="/tags/prisma/">prisma</a>
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  
+
+</p>
+  </header>
+
+  <div class="post-content" itemprop="articleBody">
+    <p>I come from a background in Ruby on Rails and there things are extremely simple, or at least I find them quite simple.</p>
+
+<p>I decided then to start a new pet project using NextJS, I am obviously quite lost. So I am doing little by little, step by step, rediscovering things in a completely different environment.</p>
+
+<p>Today I wanted to make a simple task: seed my DB.</p>
+
+<!-- more -->
+
+<h2>Getting Started</h2>
+
+<p>First of all I am assuming you have followed the NextJS initial setup and then, added the Prisma library.</p>
+
+<p>So I created in my <code class="language-plaintext highlighter-rouge">schema.prisma</code> an <code class="language-plaintext highlighter-rouge">User</code> model</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+</code></pre></div></div>
+
+<p>then I’ve run the initial commands to generate the prisma client and the initial migration</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx prisma generate
+npx prisma migrate dev <span class="nt">--name</span> init
+</code></pre></div></div>
+
+<p>‼️ Note that it will create under <code class="language-plaintext highlighter-rouge">src</code> a <code class="language-plaintext highlighter-rouge">generated</code> folder with the Prisma client. This is important to note as I’ve got stuck trying to understand why prisma client wasn’t working properly.</p>
+
+<h2>Seed</h2>
+
+<p>I’ve created a <code class="language-plaintext highlighter-rouge">seed.ts</code> under <code class="language-plaintext highlighter-rouge">prisma/</code> folder. And there I’ve setup my seed script:</p>
+
+<div class="language-ts highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="p">{</span> <span class="nx">PrismaClient</span> <span class="p">}</span> <span class="k">from</span> <span class="dl">'</span><span class="s1">../src/generated/prisma</span><span class="dl">'</span>
+
+<span class="kd">const</span> <span class="nx">prisma</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrismaClient</span><span class="p">();</span>
+
+<span class="k">async</span> <span class="kd">function</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">await</span> <span class="nx">prisma</span><span class="p">.</span><span class="nx">user</span><span class="p">.</span><span class="nf">createMany</span><span class="p">({</span>
+    <span class="na">data</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span> <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">alice@example.com</span><span class="dl">'</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Alice</span><span class="dl">'</span> <span class="p">},</span>
+      <span class="p">{</span> <span class="na">email</span><span class="p">:</span> <span class="dl">'</span><span class="s1">bob@example.com</span><span class="dl">'</span><span class="p">,</span> <span class="na">name</span><span class="p">:</span> <span class="dl">'</span><span class="s1">Bob</span><span class="dl">'</span> <span class="p">},</span>
+    <span class="p">],</span>
+  <span class="p">});</span>
+<span class="p">}</span>
+
+<span class="nf">main</span><span class="p">()</span>
+  <span class="p">.</span><span class="nf">then</span><span class="p">(()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">Seeding complete</span><span class="dl">'</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">catch</span><span class="p">((</span><span class="nx">e</span><span class="p">)</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nf">error</span><span class="p">(</span><span class="dl">'</span><span class="s1">Error during seeding:</span><span class="dl">'</span><span class="p">,</span> <span class="nx">e</span><span class="p">);</span>
+    <span class="nx">process</span><span class="p">.</span><span class="nf">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+  <span class="p">})</span>
+  <span class="p">.</span><span class="k">finally</span><span class="p">(</span><span class="k">async </span><span class="p">()</span> <span class="o">=&gt;</span> <span class="p">{</span>
+    <span class="k">await</span> <span class="nx">prisma</span><span class="p">.</span><span class="nf">$disconnect</span><span class="p">();</span>
+  <span class="p">});</span>
+
+</code></pre></div></div>
+
+<p>‼️ Note that I am using the generated Prisma client!</p>
+
+<h2>Task</h2>
+
+<p>Now to make the task available via CLI, it is required the ts-node library</p>
+
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npm <span class="nb">install</span> <span class="nt">-D</span> ts-node
+</code></pre></div></div>
+
+<p>And then finally on <code class="language-plaintext highlighter-rouge">package.json</code></p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nl">"prisma"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+  </span><span class="nl">"seed"</span><span class="p">:</span><span class="w"> </span><span class="s2">"ts-node --compiler-options {</span><span class="se">\"</span><span class="s2">module</span><span class="se">\"</span><span class="s2">:</span><span class="se">\"</span><span class="s2">CommonJS</span><span class="se">\"</span><span class="s2">} prisma/seed.ts"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<h2>Finally</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx prisma db seed
+</code></pre></div></div>
+
+<p>And it works amazingly fine!!!</p>
+
+<p>OMG HOW CRAZY IT WAS, and compared to Rails… it is an entire new world there!</p>
+
+<p>You can check your user doing:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>npx prisma studio
+</code></pre></div></div>
+
+<h2>Music of the day</h2>
+
+<iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/3CSG8VPGyLAX8uTV99a9RU?utm_source=generator" width="100%" height="120" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+
+  </div>
+
+  
+
+</article>
+
+      </div>
+    </main>
+
+    <footer class="site-footer">
+
+  <div class="wrapper">
+
+    <p>
+      
+
+&copy; fernandodev - Powered by <a href="https://jekyllrb.com">Jekyll</a> &amp; <a href="https://github.com/yous/whiteglass">whiteglass</a> - Subscribe via <a href="https://fernandodev.com/feed.xml">RSS</a>
+
+    </p>
+
+  </div>
+
+</footer>
+
+
+  </body>
+
+</html>

@@ -21,6 +21,10 @@
 <lastmod>2025-04-01T18:25:27+00:00</lastmod>
 </url>
 <url>
+<loc>https://fernandodev.com/2025/04/14/baby-steps-creating-seeds-on-nextjs/</loc>
+<lastmod>2025-04-14T18:52:16+00:00</lastmod>
+</url>
+<url>
 <loc>https://fernandodev.com/about/</loc>
 </url>
 <url>
@@ -66,6 +70,12 @@
 <loc>https://fernandodev.com/tags/unwrap/</loc>
 </url>
 <url>
+<loc>https://fernandodev.com/tags/nextjs/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/tags/prisma/</loc>
+</url>
+<url>
 <loc>https://fernandodev.com/categories/jekyll/</loc>
 </url>
 <url>
@@ -79,5 +89,11 @@
 </url>
 <url>
 <loc>https://fernandodev.com/categories/swift/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/categories/nextjs/</loc>
+</url>
+<url>
+<loc>https://fernandodev.com/posts/2/</loc>
 </url>
 </urlset>
