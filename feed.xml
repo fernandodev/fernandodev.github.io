@@ -5,7 +5,7 @@
   
   <link href="https://fernandodev.com/feed.xml" rel="self" type="application/atom+xml" />
   <link href="https://fernandodev.com/" rel="alternate" type="text/html" hreflang="en" />
-  <updated>2025-04-14T19:06:33+00:00</updated>
+  <updated>2025-06-04T19:08:33+00:00</updated>
   <id>https://fernandodev.com/</id>
 
   
@@ -24,6 +24,168 @@
     </author>
   
 
+  
+  
+    <entry>
+      
+      <title type="html">Flashing linxdot helium miner</title>
+      
+      
+      <link href="https://fernandodev.com/2025/06/04/flashing-linxdot-helium-miner/" rel="alternate" type="text/html" title="Flashing linxdot helium miner" />
+      
+      <published>2025-06-04T19:00:13+00:00</published>
+      <updated>2025-06-04T19:00:13+00:00</updated>
+      <id>https://fernandodev.com/2025/06/04/flashing-linxdot-helium-miner</id>
+      <content type="html" xml:base="https://fernandodev.com/2025/06/04/flashing-linxdot-helium-miner/">&lt;p&gt;&lt;img src=&quot;https://raw.githubusercontent.com/fernandodev/linxdot-rockchip-flash/refs/heads/main/linxdot.png&quot; alt=&quot;&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Impressive how certain projects just vanishes from day to nigh in the crypto world. Linxdot was a miner that simply stopped working. Not that it was giving any meaningfull reward, but hey! Why just dying from nothing?&lt;/p&gt;
+
+&lt;p&gt;I thought it was a Wifi issue and then after a very long time I entered the discord server of Linxdot. What a mess! Completely abandoned and I wonder why they still sell these devices, they don’t even work anymore.&lt;/p&gt;
+
+&lt;p&gt;Anyway, I had this paper weight laying around and I needed to ressurect it. I then saw I guy talking about the &lt;a href=&quot;https://crankk.io&quot;&gt;Crankk.io&lt;/a&gt; project and it seemed it can not only mine Helium but also do some other mining activities.&lt;/p&gt;
+
+&lt;p&gt;But…. I needed to flash this piece of plastic and here we are after weeks researching (cause all tutorial were for Windows).&lt;/p&gt;
+
+&lt;!-- more --&gt;
+
+&lt;h2&gt;Getting Started&lt;/h2&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;brew &lt;span class=&quot;nb&quot;&gt;install &lt;/span&gt;automake autoconf libusb lsusb pkg-config
+git clone https://github.com/rockchip-linux/rkdeveloptool
+&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;rkdeveloptool
+autoreconf &lt;span class=&quot;nt&quot;&gt;-i&lt;/span&gt;
+./configure
+make
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;It is possible that during &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;./configure&lt;/code&gt; phase you face some issue related to pointers or buffer overflow. Adjust the configuration accordingly. (usually ignore the warnings, because default treat warnings as errors)&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;My current hardware is a M1 Pro.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2&gt;Boot loader&lt;/h2&gt;
+
+&lt;p&gt;The file x.bin is the rockchip bootloader of this device, you will need it to be able to boot correctly your device.&lt;/p&gt;
+
+&lt;h2&gt;Flashing&lt;/h2&gt;
+
+&lt;p&gt;This step is the trickiest one, follow accordingly!&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Connect USB-C to the miner and on your laptop&lt;/li&gt;
+  &lt;li&gt;Connect ethernet cable (yes, it cannot be just wifi)&lt;/li&gt;
+  &lt;li&gt;Now hold the BT pair little button&lt;/li&gt;
+  &lt;li&gt;While holding the BT pair button, connect the power plug, keep holding the button&lt;/li&gt;
+  &lt;li&gt;Hold for more 8s or so&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;The LED lights are now 1 green and 1 red. It indicates that you are now on flash mode.&lt;/p&gt;
+
+&lt;h2&gt;Flashing&lt;/h2&gt;
+
+&lt;p&gt;Check if the flash worked by checking the devices connected to the usb (sometimes you need to restart your laptop after installing &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;libusb&lt;/code&gt; and &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;lsusb&lt;/code&gt;)&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;lsusb
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;You should see something like:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Bus 002 Device 001: ID 2207:350a Fuzhou Rockchip Electronics Co., Ltd. Composite Device
+Bus 000 Device 000: ID 2207:350a Fuzhou Rockchip Electronics Co., Ltd. USB 3.1 Bus
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Then you successfully connected on flash mode. Raise your hands to sky, because this is hard sometimes.&lt;/p&gt;
+
+&lt;p&gt;Now check if you connected on &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;loader&lt;/code&gt; mode:&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool ld
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This should print:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;DevNo=1	Vid=0x2207,Pid=0x350a,LocationID=201	Loader
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;If it is not in loader mode, (maybe Maskrom), it means you have to do again. Disconnect the power and retry the flashing procedure.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Erase the flash memory&lt;/li&gt;
+  &lt;li&gt;Install the bootloader&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool ef
+Erasing flash complete.
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool db rk356x_spl_loader_ddr1056_v1.10.111.bin
+Downloading bootloader succeeded.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Disconnect the power from the miner and enter on flash mode again&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool ld
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;This should print:&lt;/p&gt;
+
+&lt;div class=&quot;language-plaintext highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;DevNo=1	Vid=0x2207,Pid=0x350a,LocationID=201	Maskrom
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now you can upload the image you want to use on your device. Let’s assume you want to use &lt;a href=&quot;https://crankk.io/guides/crankk-official-guide-for-onboarding-a-linxdot-rk3566-gateway#section1&quot;&gt;Crankk OS&lt;/a&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-sh highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool cs 1
+Change Storage OK.
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool wl 0 crankkos-linxdotrk3566-1.0.0.img
+Write LBA from file &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;100%&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool td
+Test Device OK.
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;sudo &lt;/span&gt;rkdeveloptool rd
+Reset Device OK.
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Now just restart your device, disconnect the usb, and crankk it!!!&lt;/p&gt;
+
+&lt;h2&gt;References&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wiki.radxa.com/Rockpi4/install/rockchip-flash-tools&quot;&gt;Rockchip Devtool&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://wiki.radxa.com/Rockpi4/dev/usb-install&quot;&gt;Rockchip Flashing&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/fernandodev/linxdot-rockchip-flash&quot;&gt;Flash Linxdot&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content>
+
+      
+      
+      
+      
+      
+
+      
+        <author>
+            <name>fernandodev</name>
+          
+          
+        </author>
+      
+
+      
+        <category term="crypto" />
+      
+
+      
+        <category term="crypto" />
+      
+        <category term="helium" />
+      
+        <category term="linxdot" />
+      
+
+      
+        <summary type="html">Impressive how certain projects just vanishes from day to nigh in the crypto world. Linxdot was a miner that simply stopped working. Not that it was giving any meaningfull reward, but hey! Why just dying from nothing? I thought it was a Wifi issue and then after a very long time I entered the discord server of Linxdot. What a mess! Completely abandoned and I wonder why they still sell these devices, they don’t even work anymore. Anyway, I had this paper weight laying around and I needed to ressurect it. I then saw I guy talking about the Crankk.io project and it seemed it can not only mine Helium but also do some other mining activities. But…. I needed to flash this piece of plastic and here we are after weeks researching (cause all tutorial were for Windows).</summary>
+      
+
+      
+      
+    </entry>
+  
   
   
     <entry>
